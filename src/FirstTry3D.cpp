@@ -3,7 +3,7 @@
 #include <cstdio>
 #include <cstdlib>
 
-void printMatVisualization(bool** mat, int height, int width, char spaceSymbol, char filledSymbol);
+void printMatVisualization(bool** mat, int height, int width);
 
 int main(void)
 {
@@ -23,17 +23,19 @@ int main(void)
 			mat[h][w] = false;
 
 			// Testing; a diagonal line
-			if (h == w)
+			// /*
+			if (h > w)
 			{
 				mat[h][w] = true;
 			}
+			// */
 		}
 	}
 
-	printMatVisualization(mat, height, width, '.', '#');
+	printMatVisualization(mat, height, width);
 }
 
-void printMatVisualization(bool** mat, int height, int width, char spaceSymbol, char filledSymbol)
+void printMatVisualization(bool** mat, int height, int width)
 {
 	const double widthRescaleFactor = 0.6;
 	const double scaleFactor = 3.69420;
@@ -57,7 +59,7 @@ void printMatVisualization(bool** mat, int height, int width, char spaceSymbol, 
 			int h = (int)(ha * hScaleFactor);
 			int w = (int)(wa * wScaleFactor);
 
-			int yesCount = 0;
+			int filledCntr = 0;
 			for (int i = 0; i < (int)hScaleFactor; i++)
 			{
 				for (int j = 0; j < (int)wScaleFactor; j++)
@@ -66,14 +68,18 @@ void printMatVisualization(bool** mat, int height, int width, char spaceSymbol, 
 					int wp = (int)(wa * wScaleFactor) + j;
 
 					if (mat[hp][wp])
-					{ yesCount++; }
+					{ filledCntr++; }
 				}
 			}
 
-			if (yesCount > 0)
-			{ vmat[ha][wa] = filledSymbol; }
+			if (filledCntr == 0)
+			{ vmat[ha][wa] = ' '; }
+			else if (filledCntr <= 1)
+			{ vmat[ha][wa] = '*'; }
+			else if (filledCntr <= (int)scaleFactor)
+			{ vmat[ha][wa] = 'x'; }
 			else
-			{ vmat[ha][wa] = spaceSymbol; }
+			{ vmat[ha][wa] = '#'; }
 		}
 
 		vmat[ha][adjWidth] = '\0';
