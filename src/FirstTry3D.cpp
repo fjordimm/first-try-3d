@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
+#include <cmath>
 
 void printMatVisualization(bool** mat, int height, int width);
 
@@ -23,14 +24,16 @@ int main(void)
 			mat[h][w] = false;
 
 			// Testing; a diagonal line
-			// /*
+			/*
 			if (h == w)
 			{
 				mat[h][w] = true;
 			}
-			// */
+			*/
 		}
 	}
+
+	mat[104][102] = true;
 
 	printMatVisualization(mat, height, width);
 }
@@ -60,9 +63,9 @@ void printMatVisualization(bool** mat, int height, int width)
 			int w = (int)(wa * wScaleFactor);
 
 			int filledCntr = 0;
-			for (int i = 0; i < (int)hScaleFactor; i++)
+			for (int i = 0; i < (int)ceil(hScaleFactor); i++)
 			{
-				for (int j = 0; j < (int)wScaleFactor; j++)
+				for (int j = 0; j < (int)ceil(wScaleFactor); j++)
 				{
 					int hp = (int)(ha * hScaleFactor) + i;
 					int wp = (int)(wa * wScaleFactor) + j;
