@@ -7,8 +7,8 @@ void printMatVisualization(bool** mat, int height, int width);
 
 int main(void)
 {
-	const int height = 150;
-	const int width = 450;
+	const int height = 280;
+	const int width = 650;
 
 	bool** mat = (bool**) malloc(height * sizeof(bool*));
 	for (int h = 0; h < height; h++)
@@ -24,7 +24,7 @@ int main(void)
 
 			// Testing; a diagonal line
 			// /*
-			if (h > w)
+			if (h == w)
 			{
 				mat[h][w] = true;
 			}
@@ -37,8 +37,8 @@ int main(void)
 
 void printMatVisualization(bool** mat, int height, int width)
 {
-	const double widthRescaleFactor = 0.6;
-	const double scaleFactor = 3.69420;
+	const double widthRescaleFactor = 0.47;
+	const double scaleFactor = 6.9420;
 
 	const double hScaleFactor = scaleFactor;
 	const double wScaleFactor = scaleFactor * widthRescaleFactor;
