@@ -7,11 +7,12 @@
 void printMatVisualization(bool** mat, int height, int width);
 void drawLine(bool** mat, int height, int width, int x1, int y1, int x2, int y2);
 void drawLine3d(bool** mat, int height, int width, double x1, double y1, double z1, double x2, double y2, double z2);
+void drawCube3d(bool** mat, int height, int width, double x, double y, double z, double scale);
 
 int main(void)
 {
 	const int height = 150;
-	const int width = 300;
+	const int width = 350;
 
 	bool** mat = (bool**) malloc(height * sizeof(bool*));
 	for (int h = 0; h < height; h++)
@@ -35,22 +36,34 @@ int main(void)
 		}
 	}
 
-	drawLine3d(mat, height, width, 50, 50, 300, 50, 100, 300);
-	drawLine3d(mat, height, width, 50, 100, 300, 100, 100, 300);
-	drawLine3d(mat, height, width, 100, 100, 300, 100, 50, 300);
-	drawLine3d(mat, height, width, 100, 50, 300, 50, 50, 300);
+	// drawCube3d(mat, height, width, 30, 70, 300, 50);
+	// drawCube3d(mat, height, width, 130, 70, 300, 50);
+	// drawCube3d(mat, height, width, 230, 70, 300, 50);
+	// drawCube3d(mat, height, width, 130, 70, 400, 50);
 
-	drawLine3d(mat, height, width, 50, 50, 300, 50, 50, 350);
-	drawLine3d(mat, height, width, 50, 100, 300, 50, 100, 350);
-	drawLine3d(mat, height, width, 100, 50, 300, 100, 50, 350);
-	drawLine3d(mat, height, width, 100, 100, 300, 100, 100, 350);
-
-	drawLine3d(mat, height, width, 50, 50, 350, 50, 100, 350);
-	drawLine3d(mat, height, width, 50, 100, 350, 100, 100, 350);
-	drawLine3d(mat, height, width, 100, 100, 350, 100, 50, 350);
-	drawLine3d(mat, height, width, 100, 50, 350, 50, 50, 350);
+	drawCube3d(mat, height, width, -100, -100, 300, 200);
+	drawCube3d(mat, height, width, -350, -100, 300, 200);
+	drawCube3d(mat, height, width, 150, -100, 300, 200);
 
 	printMatVisualization(mat, height, width);
+}
+
+void drawCube3d(bool** mat, int height, int width, double x, double y, double z, double scale)
+{
+	drawLine3d(mat, height, width, x, y, z, x, y + scale, z);
+	drawLine3d(mat, height, width, x, y + scale, z, x + scale, y + scale, z);
+	drawLine3d(mat, height, width, x + scale, y + scale, z, x + scale, y, z);
+	drawLine3d(mat, height, width, x + scale, y, z, x, y, z);
+
+	drawLine3d(mat, height, width, x, y, z, x, y, z + scale);
+	drawLine3d(mat, height, width, x, y + scale, z, x, y + scale, z + scale);
+	drawLine3d(mat, height, width, x + scale, y, z, x + scale, y, z + scale);
+	drawLine3d(mat, height, width, x + scale, y + scale, z, x + scale, y + scale, z + scale);
+
+	drawLine3d(mat, height, width, x, y, z + scale, x, y + scale, z + scale);
+	drawLine3d(mat, height, width, x, y + scale, z + scale, x + scale, y + scale, z + scale);
+	drawLine3d(mat, height, width, x + scale, y + scale, z + scale, x + scale, y, z + scale);
+	drawLine3d(mat, height, width, x + scale, y, z + scale, x, y, z + scale);
 }
 
 void drawLine3d(bool** mat, int height, int width, double x1, double y1, double z1, double x2, double y2, double z2)
@@ -63,6 +76,11 @@ void drawLine3d(bool** mat, int height, int width, double x1, double y1, double 
 	
 	int x2p = (int)(x2 / z2);
 	int y2p = (int)(y2 / z2);
+
+	x1p = x1p / 2 + width / 2;
+	x2p = x2p / 2 + width / 2;
+	y1p = y1p / 2 + height / 2;
+	y2p = y2p / 2 + height / 2;
 
 	drawLine(mat, height, width, x1p, height - y1p, x2p, height - y2p);
 }
